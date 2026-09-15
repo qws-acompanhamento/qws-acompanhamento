@@ -1,3 +1,12 @@
+v0.37.21
+Visualizar
+Código fonte
+Editar
+
+Sincronizado
+
+
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -94,7 +103,7 @@ function closeModal(id){document.getElementById(id).classList.remove('open')}
 document.getElementById('saveEdit').onclick=async()=>{if(!editing||!route.unit)return;const status=document.getElementById('statusSelect').value;const notes=document.getElementById('notesInput').value.trim();data[key(editing.stage,editing.tag,editing.sub)]={status,notes,observacoes:notes};if(!saveData())return;const unitAtSave=route.unit;closeModal('editModal');render();flash(firebaseDb?'Sincronizando...':'Salvo localmente');if(firebaseDb)await writeUnit(unitAtSave,data)};window.addEventListener('storage',()=>{if(route.screen==='menu')render()})
 function openSummary(status){const items=allItems().filter(x=>x.status===status);document.getElementById('summaryTitle').textContent=`${statusLabel(status)} · ${items.length} itens`;document.getElementById('summaryList').innerHTML=items.length?items.map(x=>`<div class="summary-item"><div><strong>${x.tag}</strong><small> · ${STAGES[x.si].name} / ${x.sub}</small></div>${badge(x.status)}</div>`).join(''):'<div class="empty">Nenhum item neste status.</div>';document.getElementById('summaryModal').classList.add('open')}
 function flash(text){const el=document.getElementById('syncText');el.textContent=text;setTimeout(()=>el.textContent='Sincronizado localmente',1500)}
-document.getElementById('syncBtn').onclick=async()=>{if(saveData()&&firebaseDb&&route.unit)await writeUnit(route.unit,data);flash(firebaseDb?'Sincronizado agora':'Sincronizado localmente')};document.querySelectorAll('.modal-backdrop').forEach(el=>el.onclick=e=>{if(e.target===el)el.classList.remove('open')});window.addEventListener('online',()=>{setConnection(firebaseDb?'Sincronizando...':'Conectado · local',!!firebaseDb);if(firebaseDb&&route.unit)writeUnit(route.unit,loadData())});const FIREBASE_CONFIG={apiKey:'AIzaSyBR4A6LLQb9UFczTcvPZQbXKa4HaWgvHSU',authDomain:'qws-acompanhamento.firebaseapp.com',databaseURL:'https://qws-acompanhamento-default-rtdb.europe-west1.firebasedatabase.url',projectId:'qws-acompanhamento',storageBucket:'qws-acompanhamento.firebasestorage.app',messagingSenderId:'561320056399',appId:'1:561320056399:web:4f0d93e16c6fe9c1f5fc3a'};if(window.firebase)initializeFirebase(FIREBASE_CONFIG);render();
+document.getElementById('syncBtn').onclick=async()=>{if(saveData()&&firebaseDb&&route.unit)await writeUnit(route.unit,data);flash(firebaseDb?'Sincronizado agora':'Sincronizado localmente')};document.querySelectorAll('.modal-backdrop').forEach(el=>el.onclick=e=>{if(e.target===el)el.classList.remove('open')});window.addEventListener('online',()=>{setConnection(firebaseDb?'Sincronizando...':'Conectado · local',!!firebaseDb);if(firebaseDb&&route.unit)writeUnit(route.unit,loadData())});const FIREBASE_CONFIG={apiKey:'AIzaSyBR4A6LLQb9UFczTcvPZQbXKa4HaWgvHSU',authDomain:'qws-acompanhamento.firebaseapp.com',databaseURL:'https://qws-acompanhamento-default-rtdb.europe-west1.firebasedatabase.app',projectId:'qws-acompanhamento',storageBucket:'qws-acompanhamento.firebasestorage.app',messagingSenderId:'561320056399',appId:'1:561320056399:web:4f0d93e16c6fe9c1f5fc3a'};if(window.firebase)initializeFirebase(FIREBASE_CONFIG);render();
 </script>
 </body>
 </html>
